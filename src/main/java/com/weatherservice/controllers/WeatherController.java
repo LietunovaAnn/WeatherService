@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.WebProperties;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +32,7 @@ public class WeatherController {
 
     @GetMapping(value = "/weather/current")
     @CrossOrigin(origins="http://localhost:8787")
-//    public Weather weatherForecastAverage(@RequestParam(value="location", defaultValue = "Odessa")String location) {
-//        return weatherService.current(location);
-//    }
+    @Cacheable("weather")
     public Weather current(@RequestParam(value="location", defaultValue = "Odessa")String location) {
         String content;
         try {
